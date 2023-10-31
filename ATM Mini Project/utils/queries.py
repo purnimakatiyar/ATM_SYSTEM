@@ -4,12 +4,9 @@ INSERT_INTO_ACCOUNT_TABLE = """INSERT INTO Account VALUES(?, ?, ?, ?, ?)"""
 
 INSERT_TRANSACTION = """INSERT INTO TransactionTable VALUES (?, ?, ?, ?, ?)"""
 
-
 DELETE_FROM_AUTH_TABLE = """DELETE FROM Authtable WHERE Unique_id = ?"""
 
 DELETE_FROM_ACCOUNT_TABLE = """DELETE FROM Account WHERE Unique_id = ?"""
-
-
 
 UPDATE_SECURITY_CODE_IN_AUTH = """UPDATE Authtable SET Security_code = ? WHERE Unique_id = ?"""
 
