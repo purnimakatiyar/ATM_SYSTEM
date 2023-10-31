@@ -47,11 +47,3 @@ class Authenticate:
                     print(config.WRONG_INPUT)
         else:
             print(config.WRONG_CREDENTIALS)
-            
-        
-        
-        
-           
-            
-
-
