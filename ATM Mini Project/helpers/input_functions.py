@@ -1,75 +1,65 @@
-from controllers.admin import Admin
-from controllers.customer import Customer
+from controllers.user import User
 from utils.validators import Validation
-from helpers import config
-
+from configurations import prompts
 import maskpass
+
 
 class InputFunctions:
     
-    def customer_add_input():
-        unique_id = input(config.UNIQUE_ID)
+    
+    def customer_add_input(self):
+        unique_id = input(prompts.UNIQUE_ID)
         while Validation.validate_id(unique_id) == False:
-            unique_id = input(config.VALID_UNIQUE_ID)
+            unique_id = input(prompts.VALID_UNIQUE_ID)
              
-        security_code = maskpass.advpass(prompt = config.SECURITY_CODE, mask = "*")
+        security_code = maskpass.advpass(prompt = prompts.SECURITY_CODE, mask = "*")
        
-
-        account_number = input(config.ACCOUNT_NUMBER)
+        account_number = input(prompts.ACCOUNT_NUMBER)
         while Validation.validate_account_number(account_number) == False:
-            account_number = input(config.VALID_ACCOUNT_NUMBER)
+            account_number = input(prompts.VALID_ACCOUNT_NUMBER)
         
-        name = input(config.NAME)    
+        name = input(prompts.NAME)    
         while Validation.validate_account_number(account_number) == False:
-            name = input(config.VALID_NAME)
+            name = input(prompts.VALID_NAME)
             
-        balance = input(config.BALANCE)
+        balance = input(prompts.BALANCE)
 
-        account_type = input(config.ACCOUNT_TYPE)
+        account_type = input(prompts.ACCOUNT_TYPE)
         while Validation.validate_account_type(account_number) == True:
-            account_type = input(config.VALID_ACCOUNT_TYPE)
+            account_type = input(prompts.VALID_ACCOUNT_TYPE)
 
-        customer = Customer(unique_id, security_code, account_number, name, balance, account_type)
-        Admin.add_customer(customer)
+        customer = User(unique_id, security_code, account_number, name, balance, account_type)
+        User.add_customer(customer)
         
     
-    def delete_customer_input():
-        unique_id = input(config.DELETE_CUSTOMER)
-        admin = Admin()
-        admin.remove_customer(unique_id)
+    def delete_customer_input(self):
+        unique_id = input(prompts.DELETE_CUSTOMER)
+        return unique_id
+       
         
-    def unique_id_input():
-        return input(config.AUTH_UNIQUE_ID) 
+    def unique_id_input(self):
+        return input(prompts.AUTH_UNIQUE_ID) 
     
-    def security_code_input():
-        return maskpass.advpass(prompt = config.AUTH_SECURITY_CODE, mask = "*")
+    
+    def security_code_input(self):
+        return maskpass.advpass(prompt = prompts.AUTH_SECURITY_CODE, mask = "*")
         
-    def valid_unique_id_input():
-        unique_id = input(config.VALID_UNIQUE_ID)
+        
+    def valid_unique_id_input(self):
+        unique_id = input(prompts.VALID_UNIQUE_ID)
         return unique_id 
         
-    def deposit_money_input():
-        amount = input(config.DEPOSIT_AMOUNT)
-        customer = Customer()
-        customer.deposit_money(amount)
         
-    def Withdraw_money_input():
-        amount = input(config.WITHDRAW_AMOUNT)
-        customer = Customer()
-        customer.withdraw_money(amount)
+    def deposit_money_input(self):
+        amount = input(prompts.DEPOSIT_AMOUNT)
+        return amount
         
-    def view_balance():
-        customer = Customer()
-        customer.view_balance()
+        
+    def Withdraw_money_input(self):
+        amount = input(prompts.WITHDRAW_AMOUNT)
+        return amount
   
-    def change_security_code_input():
-        new_security_code = maskpass.advpass(prompt = config.NEW_SECURITY_CODE, mask = "*")
-        customer = Customer()
-        customer.change_security_code(new_security_code)
-        
-    def view_recent_transactions():
-        customer = Customer()
-        customer.view_recent_transactions()
-        
-        
-                
+  
+    def change_security_code_input(self):
+        new_security_code = maskpass.advpass(prompt = prompts.NEW_SECURITY_CODE, mask = "*")
+        return new_security_code
