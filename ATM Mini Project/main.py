@@ -1,10 +1,8 @@
-from utils.logging import Logs
-from controllers.authenticate import Authenticate
+from views.menu import Menu
 from models.db import Database
 
 def main():
-    log = Logs()
-    Authenticate().login()
+    Menu().login()
     Database().close()
     
 if __name__ == '__main__':

@@ -28,9 +28,8 @@ class InputFunctions:
         while Validation.validate_account_type(account_number) == True:
             account_type = input(prompts.VALID_ACCOUNT_TYPE)
 
-        customer = User(unique_id, security_code, account_number, name, balance, account_type)
-        User.add_customer(customer)
-        
+        return (unique_id, security_code, account_number, name, balance, account_type)
+    
     
     def delete_customer_input(self):
         unique_id = input(prompts.DELETE_CUSTOMER)
