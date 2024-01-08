@@ -1,62 +1,82 @@
 import sqlite3
 
 
-
 class Database:
-    def __init__(self):
-        ...
-        
-    def __enter__(self):
-        self.connection = sqlite3.connect('userdb.db')
-        cursor = self.connection.cursor()
-        return cursor
+    
+    _instance = None
+    
+    def __new__(cls, connection=None):
+        if not cls._instance:
+            cls._instance = super().__new__(cls)
+            cls._instance.connection = None
+            cls._instance.host = "C:\\Users\\pkatiyar\\WG_tasks\\ATM Mini Project\\userdb.db"
+            cls._instance.cursor = None
+
+        return cls._instance
+
+
+    def __enter__(self) -> sqlite3.Connection:
+        self.connection = sqlite3.connect(self.host)
+        self.cursor = self.connection.cursor()
+        return self.connection
+
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.connection.commit()
-        self.connection.close()
-        
+        if exc_type or exc_val or exc_tb:
+            print(f"Exception type: {exc_type}")
+            print(f"Exception value: {exc_val}")
+            print(f"Exception traceback: {exc_tb}")
+
+        else:
+            self.connection.commit()
+
+
+    def close(self):
+        if self.connection:
+            self.connection.close()
+             
           
-    def get_item(query, *data):
-        with Database() as cursor:
+    def get_item(self, query, data):
+        response = None
+        with db as cursor:
             try:
-                cursor.execute(query, data)
-                response = cursor.fetchone()
+                response = cursor.execute(query, data).fetchone()
             except sqlite3.Error as error:
                 print(error)
             return response
-
-
-    def get_items(query, *data):
-        with Database() as cursor:
+    
+    
+    def get_items(self, query, data):
+        response = None
+        with db as cursor:
             try:
-                cursor.execute(query, data)
-                response = cursor.fetchall()
+                response = cursor.execute(query, data).fetchall()
             except sqlite3.Error as error:
                 print(error)
             return response
-
-
-    def insert_item(query, *data):
-        with Database() as cursor:
+        
+    
+    def insert_item(self, query, data):
+        with db as cursor:
             try:
                 cursor.execute(query, data)
             except sqlite3.Error as error:
                 print(error)
 
-
-    def update_item(query, *data):
-        with Database() as cursor:
+    
+    def update_item(self, query, data):
+        with db as cursor:
             try:
                 cursor.execute(query, data)
             except sqlite3.Error as error:
                 print(error)
-            
-        
-        
-
-
-            
-
-
-            
-            
+             
+         
+    def delete_item(self, query, data):
+        with db as cursor:
+            try:
+                cursor.execute(query, data)
+            except sqlite3.Error as error:
+                print(error)  
+                
+db = Database()        

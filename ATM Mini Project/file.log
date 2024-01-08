@@ -16,3 +16,8 @@ INFO:root:User with id '2' has been added!
 INFO:root:Customer with id '7' has deposited money successfully!
 INFO:root:Customer with id '7' has withdrawn money successfully!
 INFO:root:Customer with id '7' has withdrawn money successfully!
+INFO:root:User with id '2' has been added!
+INFO:root:User with id '2' has changed security code successfully!
+INFO:root:Customer with id '13' has deposited money successfully!
+INFO:root:Customer with id '13' has withdrawn money successfully!
+INFO:root:User with id '13' has changed security code successfully!
